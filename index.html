@@ -277,6 +277,145 @@
     margin-top: 2px;
   }
 
+  /* Agency Guide */
+  .guide-card {
+    background: linear-gradient(180deg, var(--white) 0%, #fcf8f1 100%);
+  }
+
+  .guide-inner {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+  }
+
+  .guide-thumb-wrap {
+    flex: 0 0 auto;
+  }
+
+  .guide-thumb {
+    width: 180px;
+    height: auto;
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(13, 31, 53, 0.12);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .guide-thumb:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(13, 31, 53, 0.18);
+  }
+
+  .guide-content {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .guide-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .guide-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(22px, 3vw, 28px);
+    color: var(--navy);
+    margin: 0 0 12px;
+  }
+
+  .guide-desc {
+    color: var(--muted);
+    font-size: 15.5px;
+    line-height: 1.6;
+    margin: 0 0 18px;
+  }
+
+  .guide-highlights {
+    list-style: none;
+    margin: 0 0 18px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .guide-highlights li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    color: var(--navy);
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+
+  .guide-highlights svg {
+    flex: 0 0 auto;
+    margin-top: 2px;
+  }
+
+  .guide-tip {
+    border-left: 3px solid var(--gold);
+    background: linear-gradient(180deg, #fbf6ec 0%, #f8efdd 100%);
+    border-radius: 0 12px 12px 0;
+    padding: 14px 16px;
+    margin: 0 0 20px;
+    font-style: italic;
+    color: var(--navy);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+
+  .guide-tip strong {
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .guide-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--navy);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 14.5px;
+    font-weight: 600;
+    padding: 14px 22px;
+    border-radius: 14px;
+    transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  }
+
+  .guide-download-btn svg {
+    flex: 0 0 auto;
+  }
+
+  .guide-download-btn:hover {
+    background: var(--navy-mid);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(13, 31, 53, 0.2);
+  }
+
+  @media (max-width: 600px) {
+    .guide-inner {
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .guide-thumb-wrap {
+      align-self: center;
+    }
+
+    .guide-download-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
   /* Rates */
   .rates-card .rates-eyebrow {
     font-size: 12px;
@@ -807,6 +946,41 @@
           <circle cx="12" cy="16.5" r="1" fill="currentColor"/>
         </svg>
         <span id="reminder-text"></span>
+      </div>
+    </section>
+
+    <!-- Agency Guide card -->
+    <section class="card guide-card" id="guideCard" style="display:none;" aria-labelledby="guide-title">
+      <div class="guide-inner">
+        <div class="guide-thumb-wrap">
+          <img src="agency-guide-cover.png" alt="Agency Guide Cover" class="guide-thumb" />
+        </div>
+        <div class="guide-content">
+          <div class="guide-label">Agency Resource</div>
+          <h3 class="guide-title" id="guide-title">Newborn Insurance Agency Guide</h3>
+          <p class="guide-desc">A complete walkthrough for your agency — how Newborn Medical Contractual Liability coverage works, what your intended parents and surrogates need to know, and how to move each policy from quote to bound without delays.</p>
+          <ul class="guide-highlights">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Step-by-step overview of the application and binding process</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>How singleton and split embryo rates are structured</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Document checklist for agencies, intended parents, and surrogates</span>
+            </li>
+          </ul>
+          <div class="guide-tip">
+            <strong>Tip:</strong> Save this guide and share it with your intended parents early — having the required documents ready up front is the fastest way to get a policy bound before transfer.
+          </div>
+          <a href="agency-guide.pdf" download="Newborn_Insurance_Agency_Guide.pdf" class="guide-download-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 19h14" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"/></svg>
+            Download Agency Guide (PDF)
+          </a>
+        </div>
       </div>
     </section>
 
@@ -1365,6 +1539,7 @@
   const metaLine = document.getElementById("meta-line");
   const reminderText = document.getElementById("reminder-text");
   const ratesCard = document.getElementById("rates-card");
+  const guideCard = document.getElementById("guideCard");
   const ratesSubtitle = document.getElementById("rates-subtitle");
   const ratesBody = document.getElementById("rates-body");
   const ratesCardSE = document.getElementById("rates-card-se");
@@ -1428,6 +1603,7 @@
 
     errorCard.classList.add("hidden");
     greetingCard.classList.remove("hidden");
+    guideCard.style.display = "block";
     ratesCard.classList.remove("hidden");
     ratesCardSE.classList.remove("hidden");
     selectorCard.classList.remove("hidden");
@@ -1439,6 +1615,7 @@
     state.agency = null;
     errorCard.classList.remove("hidden");
     greetingCard.classList.add("hidden");
+    guideCard.style.display = "none";
     ratesCard.classList.add("hidden");
     ratesCardSE.classList.add("hidden");
     selectorCard.classList.add("hidden");
