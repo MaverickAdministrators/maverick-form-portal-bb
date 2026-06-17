@@ -39,6 +39,10 @@ const AGENCY_GUIDE_CONFIG = {
   // Inspect your page and update this if needed.
   agencyCodeSelector: "#agency-code",  // <span class="code-pill" id="agency-code">ABC-123</span>
 
+  // CSS selector for the element that displays the resolved agency NAME on screen.
+  // Used only for the downloaded filename (the PDF content still uses the code).
+  agencyNameSelector: "#greeting-name",  // <span class="greeting-name" id="greeting-name">Happy Beginnings Surrogacy</span>
+
   // Fallback: JS variable name that holds the agency code (used if selector finds nothing).
   // Set to null to disable.
   agencyCodeVariable: null,           // no global window variable holds the code on this site
@@ -78,7 +82,9 @@ async function downloadAgencyGuide(event) {
 
   try {
     const pdfBytes = await buildPersonalizedPdf(agencyId);
-    triggerDownload(pdfBytes, `Newborn_Insurance_Agency_Guide_${sanitizeFilename(agencyId)}.pdf`);
+    const agencyName = resolveAgencyName();
+    const fileLabel = agencyName || agencyId; // fall back to code if name not found
+    triggerDownload(pdfBytes, `Newborn_Insurance_Agency_Guide_${sanitizeFilename(fileLabel)}.pdf`);
   } catch (err) {
     console.error("Agency Guide PDF generation failed:", err);
     alert("Sorry, there was a problem generating the PDF. Please try again or contact Maverick Administrators.");
@@ -150,6 +156,21 @@ function resolveAgencyCode() {
   // Try global variable
   if (cfg.agencyCodeVariable && window[cfg.agencyCodeVariable]) {
     return String(window[cfg.agencyCodeVariable]).trim();
+  }
+
+  return null;
+}
+
+/**
+ * Resolves the agency display name from the page for use in the download filename.
+ * Returns null if no name is found, so the caller can fall back to the agency code.
+ */
+function resolveAgencyName() {
+  const cfg = AGENCY_GUIDE_CONFIG;
+
+  if (cfg.agencyNameSelector) {
+    const el = document.querySelector(cfg.agencyNameSelector);
+    if (el && el.textContent.trim()) return el.textContent.trim();
   }
 
   return null;
