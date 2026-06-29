@@ -1895,8 +1895,8 @@
 
     <!-- Greeting card -->
     <section class="card greeting-card hidden" id="greeting-card" aria-live="polite">
-      <div class="eyebrow">Agency Verified</div>
-      <h2>Hi <span class="greeting-name" id="greeting-name"></span>. Your Agency Code is <span class="code-pill" id="agency-code"></span>.</h2>
+      <div class="eyebrow" id="greeting-eyebrow">Agency Verified</div>
+      <h2>Hi <span class="greeting-name" id="greeting-name"></span>. Your <span id="greeting-agency-label">Agency </span>Code is <span class="code-pill" id="agency-code"></span>.</h2>
       <p class="meta-line" id="meta-line"></p>
       <div class="reminder" id="reminder-banner">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1912,7 +1912,7 @@
     <section class="card guide-card" id="guideCard" style="display:none;">
       <div class="guide-inner">
         <div class="guide-thumb-wrap">
-          <img src="agency-guide-cover.png" alt="Agency Guide Cover" class="guide-thumb" />
+          <img src="agency-guide-cover.png" alt="Agency Guide Cover" class="guide-thumb" id="guide-thumb-img" />
           <a href="#" onclick="downloadAgencyGuide(event)" class="guide-download-btn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1923,8 +1923,8 @@
           </a>
         </div>
         <div class="guide-content">
-          <div class="guide-label">Agency Resource</div>
-          <h3 class="guide-title">Newborn Insurance Agency Guide</h3>
+          <div class="guide-label" id="guide-label">Agency Resource</div>
+          <h3 class="guide-title" id="guide-title">Newborn Insurance Agency Guide</h3>
           <p class="guide-desc">Your complete field reference for the Newborn Medical Contractual Liability Insurance program — from application through the end of the coverage period.</p>
           <ul class="guide-highlights">
             <li>
@@ -2075,13 +2075,13 @@
             <span class="box-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="18" rx="1"/><path d="M14 9h5a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-5"/><path d="M8 7h2M8 11h2M8 15h2"/></svg>
             </span>
-            From the Agency
+            <span id="agency-box-title">From the Agency</span>
           </h4>
           <ul>
-            <li>Agency Contact First Name</li>
-            <li>Agency Contact Last Name</li>
-            <li>Agency Contact Email Address</li>
-            <li>Agency Contact Phone Number</li>
+            <li id="agency-contact-first">Agency Contact First Name</li>
+            <li id="agency-contact-last">Agency Contact Last Name</li>
+            <li id="agency-contact-email">Agency Contact Email Address</li>
+            <li id="agency-contact-phone">Agency Contact Phone Number</li>
           </ul>
         </div>
 
@@ -2609,6 +2609,27 @@
   const btnSplit = document.getElementById("btn-split");
   const openBtn = document.getElementById("open-form");
 
+  // Labels whose visible "Agency" wording is stripped for the SeedTrust result display.
+  const agencyLabelOverrides = [
+    { el: document.getElementById("greeting-eyebrow"), full: "Agency Verified", stripped: "Verified" },
+    { el: document.getElementById("greeting-agency-label"), full: "Agency ", stripped: "" },
+    { el: document.getElementById("guide-label"), full: "Agency Resource", stripped: "Resource" },
+    { el: document.getElementById("guide-title"), full: "Newborn Insurance Agency Guide", stripped: "Newborn Insurance Guide" },
+    { el: document.getElementById("agency-box-title"), full: "From the Agency", stripped: "From the" },
+    { el: document.getElementById("agency-contact-first"), full: "Agency Contact First Name", stripped: "Contact First Name" },
+    { el: document.getElementById("agency-contact-last"), full: "Agency Contact Last Name", stripped: "Contact Last Name" },
+    { el: document.getElementById("agency-contact-email"), full: "Agency Contact Email Address", stripped: "Contact Email Address" },
+    { el: document.getElementById("agency-contact-phone"), full: "Agency Contact Phone Number", stripped: "Contact Phone Number" },
+  ];
+  const guideThumbImg = document.getElementById("guide-thumb-img");
+
+  function applyAgencyLabels(hideAgencyWord) {
+    agencyLabelOverrides.forEach(({ el, full, stripped }) => {
+      if (el) el.textContent = hideAgencyWord ? stripped : full;
+    });
+    if (guideThumbImg) guideThumbImg.alt = hideAgencyWord ? "Guide Cover" : "Agency Guide Cover";
+  }
+
   // -------- Behavior --------
   function renderRates(stateCode) {
     const rows = rates[stateCode] || [];
@@ -2693,11 +2714,15 @@
   function renderAgency(agency) {
     state.agency = agency;
     const stateFull = stateNames[agency.state] || agency.state;
+    const hideAgencyWord = agency.id === "SeedTrust";
+
+    applyAgencyLabels(hideAgencyWord);
 
     greetingName.textContent = agency.name;
     agencyCode.textContent = agency.id;
     metaLine.innerHTML = `Issuing State: <strong>${stateFull} (${agency.state})</strong>. Below you will find the rates for your issuing state.`;
-    reminderText.textContent = `Please save this information before continuing. You will need your Agency Code (${agency.id}) and the rates below when filling out the application form.`;
+    const codeLabel = hideAgencyWord ? "Code" : "Agency Code";
+    reminderText.textContent = `Please save this information before continuing. You will need your ${codeLabel} (${agency.id}) and the rates below when filling out the application form.`;
 
     ratesSubtitle.textContent = `Singleton policy rates for ${stateFull} — current as of 2026.`;
     renderRates(agency.state);
