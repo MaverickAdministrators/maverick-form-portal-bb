@@ -1851,7 +1851,7 @@
       <div class="broker-badge">Brown &amp; Brown</div>
       <h1>Newborn Medical Contractual<br><em>Liability Insurance Portal</em></h1>
       <div class="header-rule" aria-hidden="true"></div>
-      <p class="subtitle">Enter your agency name and press Enter to retrieve your agency code, review your issuing-state rates, and open the correct application form.</p>
+      <p class="subtitle" id="search-subtitle">Enter your agency name and press Enter to retrieve your agency code, review your issuing-state rates, and open the correct application form.</p>
     </div>
   </header>
 
@@ -1862,8 +1862,8 @@
       <div class="new-agency-notice">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         <span>
-          Not an approved agency yet? Please complete the
-          <a href="https://share-na2.hsforms.com/2XRnyEcg8TuWMGCM1zsfaVQsu007" target="_blank">New Agency / Entity Set-Up Form</a>
+          <span id="newagency-pre">Not an approved agency yet? Please complete the</span>
+          <a id="newagency-link" href="https://share-na2.hsforms.com/2XRnyEcg8TuWMGCM1zsfaVQsu007" target="_blank">New Agency / Entity Set-Up Form</a>
           to begin your approval process.
         </span>
       </div>
@@ -2214,7 +2214,7 @@
           </svg>
           surrogacy@mavericktpa.com
         </a>
-        <span class="footer-note">For agency use only</span>
+        <span class="footer-note" id="footer-note">For agency use only</span>
       </div>
     </div>
     <div class="footer-bottom">
@@ -2620,6 +2620,11 @@
     { el: document.getElementById("agency-contact-last"), full: "Agency Contact Last Name", stripped: "Contact Last Name" },
     { el: document.getElementById("agency-contact-email"), full: "Agency Contact Email Address", stripped: "Contact Email Address" },
     { el: document.getElementById("agency-contact-phone"), full: "Agency Contact Phone Number", stripped: "Contact Phone Number" },
+    { el: document.getElementById("search-subtitle"), full: "Enter your agency name and press Enter to retrieve your agency code, review your issuing-state rates, and open the correct application form.", stripped: "Enter your name and press Enter to retrieve your code, review your issuing-state rates, and open the correct application form." },
+    { el: document.getElementById("search-label"), full: "Surrogacy Agency Lookup", stripped: "Surrogacy Lookup" },
+    { el: document.getElementById("newagency-pre"), full: "Not an approved agency yet? Please complete the", stripped: "Not approved yet? Please complete the" },
+    { el: document.getElementById("newagency-link"), full: "New Agency / Entity Set-Up Form", stripped: "New Entity Set-Up Form" },
+    { el: document.getElementById("footer-note"), full: "For agency use only", stripped: "For use only" },
   ];
   const guideThumbImg = document.getElementById("guide-thumb-img");
 
